@@ -1,0 +1,9 @@
+[submodule "Stats/Common"]
+	path = Stats/Common
+	url = https://github.com/lucarager/CS2-LucaModsCommon.git
+[submodule "Common"]
+	path = Common
+	url = https://github.com/lucarager/CS2-LucaModsCommon.git
+[submodule "SubElementManager/Common"]
+	path = SubElementManager/Common
+	url = https://github.com/lucarager/CS2-LucaModsCommon.git

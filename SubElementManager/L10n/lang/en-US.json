@@ -1,0 +1,5 @@
+{
+  "Options.SECTION[SubElementManager.SubElementManager.Mod]": "SubElementManager",
+  "SubElementManager.Stat[BIKERS]": "Citizens on Bikes",
+  "UI.Common.ModButtonTooltip": "Toggle SubElementManager Panel"
+}
