@@ -1,5 +1,14 @@
 {
-  "Options.SECTION[SubElementManager.SubElementManager.Mod]": "SubElementManager",
-  "SubElementManager.Stat[BIKERS]": "Citizens on Bikes",
-  "UI.Common.ModButtonTooltip": "Toggle SubElementManager Panel"
+  "Options.SECTION[SubElementManager.SubElementManager.SEM_Mod]": "SEM",
+  "SubElementManager.UI.ToolOptions.Title": "SEM",
+  "SubElementManager.UI.ToolOptions.FixedRandomSeed": "Disable Asset Randomness",
+  "SubElementManager.UI.ToolOptions.Decorations": "Remove Decorations",
+  "SubElementManager.UI.ToolOptions.Surface": "Remove Surfaces",
+  "SubElementManager.UI.ToolOptions.Vegetation": "Remove Vegetation",
+  "SubElementManager.UI.ToolOptions.NoFence": "No Fence",
+  "SubElementManager.UI.ToolOptions.NoHedge": "No Hedge",
+  "SubElementManager.UI.ToolOptions.NoSurfaceGrass": "No Grass",
+  "SubElementManager.UI.ToolOptions.NoSurfacePavement": "No Pavement",
+  "SubElementManager.UI.ToolOptions.NoVegetation": "No Vegetation",
+  "SubElementManager.UI.ToolOptions.ToggleAll": "Toggle All"
 }
