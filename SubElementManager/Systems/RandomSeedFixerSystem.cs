@@ -1,6 +1,5 @@
 ﻿namespace SubElementManager.Systems {
     using Game.Common;
-    using Game.Prefabs;
     using Game.Tools;
     using LucaModsCommon.Systems;
     using Unity.Burst.Intrinsics;
@@ -36,7 +35,6 @@
 
             var job = new SEM_RandomSeedFixerJob {
                 CreationDefinitionTypeHandle = SystemAPI.GetComponentTypeHandle<CreationDefinition>(),
-                PrefabRefTypeHandle = SystemAPI.GetComponentTypeHandle<PrefabRef>(),
                 CachedPrefabEntity = m_CachedPrefabEntity,
                 CachedRandomSeed = m_CachedRandomSeed,
             };
@@ -52,24 +50,22 @@
         [BurstCompile]
 #endif
         private struct SEM_RandomSeedFixerJob : IJobChunk {
-            public required ComponentTypeHandle<PrefabRef>          PrefabRefTypeHandle;
-            public required            ComponentTypeHandle<CreationDefinition> CreationDefinitionTypeHandle;
-            
-            public required            Entity                                  CachedPrefabEntity;
-            public                     int                                     CachedRandomSeed;
+            public required ComponentTypeHandle<CreationDefinition> CreationDefinitionTypeHandle;
+
+            public required Entity CachedPrefabEntity;
+            public          int    CachedRandomSeed;
 
             public void Execute(in ArchetypeChunk chunk, int unfilteredChunkIndex, bool useEnabledMask,
                                 in v128           chunkEnabledMask) {
                 var creationDefinitions = chunk.GetNativeArray(ref CreationDefinitionTypeHandle);
-                var prefabRefs = chunk.GetNativeArray(ref PrefabRefTypeHandle);
 
                 for (var i = 0; i < creationDefinitions.Length; i++) {
                     var creationDefinition = creationDefinitions[i];
-                    var prefabRef = prefabRefs[i];
 
-                    // Whenever we switch prefab, cache the first random seed.
-                    if (CachedPrefabEntity != prefabRef.m_Prefab) {
-                        CachedPrefabEntity = prefabRef.m_Prefab;
+                    // The definition's target prefab lives in CreationDefinition.m_Prefab; definition
+                    // entities have no PrefabRef component. Whenever we switch prefab, cache the first seed.
+                    if (CachedPrefabEntity != creationDefinition.m_Prefab) {
+                        CachedPrefabEntity = creationDefinition.m_Prefab;
                         CachedRandomSeed   = creationDefinition.m_RandomSeed;
                     }
 

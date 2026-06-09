@@ -9,11 +9,11 @@ namespace SubElementManager {
 
     using Game;
     using Game.Modding;
-
     using LucaModsCommon.Mod;
 
     using Newtonsoft.Json;
     using SubElementManager.L10n;
+    using SubElementManager.Systems;
 
     public sealed class SEM_Mod : LucaModBase<SEM_Mod>, IMod {
         public override   string ModName       => "SubElementManager";
@@ -26,9 +26,10 @@ namespace SubElementManager {
             new SEM_LocaleEn((SEM_Setting)settings);
 
         protected override void RegisterSystems(UpdateSystem updateSystem) {
-            updateSystem.UpdateAfter<Systems.SEM_RandomSeedFixerSystem>(SystemUpdatePhase.PostTool);
-            updateSystem.UpdateAt<Systems.SEM_SubElementDeleteSystem>(SystemUpdatePhase.Modification4B);
-            updateSystem.UpdateAt<Systems.SEM_ToolbarUISystem>(SystemUpdatePhase.UIUpdate);
+            updateSystem.UpdateAfter<SEM_RandomSeedFixerSystem>(SystemUpdatePhase.PostTool);
+            updateSystem.UpdateAt<SEM_DefinitionInterceptorSystem>(SystemUpdatePhase.PostTool);
+            updateSystem.UpdateAfter<SEM_SubElementDeleteSystem, Game.Objects.SubObjectReferencesSystem>(SystemUpdatePhase.Modification3);
+            updateSystem.UpdateAt<SEM_ToolbarUISystem>(SystemUpdatePhase.UIUpdate);
         }
 
         /// <summary>

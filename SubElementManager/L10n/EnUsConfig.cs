@@ -22,13 +22,19 @@
                 { "SubElementManager.UI.ToolOptions.Title", "SEM" },
                 { "SubElementManager.UI.ToolOptions.FixedRandomSeed", "Disable Asset Randomness" },
                 { "SubElementManager.UI.ToolOptions.Decorations", "Remove Decorations" },
+                { "SubElementManager.UI.ToolOptions.Markings", "Remove Markings" },
                 { "SubElementManager.UI.ToolOptions.Surface", "Remove Surfaces" },
                 { "SubElementManager.UI.ToolOptions.Vegetation", "Remove Vegetation" },
-                { "SubElementManager.UI.ToolOptions.NoFence", "No Fence" },
-                { "SubElementManager.UI.ToolOptions.NoHedge", "No Hedge" },
+                { "SubElementManager.UI.ToolOptions.Elements", "Remove Elements" },
+                { "SubElementManager.UI.ToolOptions.NoBoundaryFence", "No Fence" },
+                { "SubElementManager.UI.ToolOptions.NoBoundaryHedge", "No Hedge" },
+                { "SubElementManager.UI.ToolOptions.NoMarkingLane", "No Lane Markings" },
                 { "SubElementManager.UI.ToolOptions.NoSurfaceGrass", "No Grass" },
                 { "SubElementManager.UI.ToolOptions.NoSurfacePavement", "No Pavement" },
-                { "SubElementManager.UI.ToolOptions.NoVegetation", "No Vegetation" },
+                { "SubElementManager.UI.ToolOptions.NoVegetationTree", "No Trees" },
+                { "SubElementManager.UI.ToolOptions.NoVegetationShrub", "No Shrubs" },
+                { "SubElementManager.UI.ToolOptions.NoElementParking", "No Parking" },
+                { "SubElementManager.UI.ToolOptions.NoElementLights", "No Lights" },
                 { "SubElementManager.UI.ToolOptions.ToggleAll", "Toggle All" }
             };
         }

@@ -74,12 +74,20 @@ const ToolPanel = function ToolPanel() {
                                 group={ToolOptionGroups.Decorations}
                             />
                             <ToolRow
+                                label="SubElementManager.UI.ToolOptions.Markings"
+                                group={ToolOptionGroups.Markings}
+                            />
+                            <ToolRow
                                 label="SubElementManager.UI.ToolOptions.Surface"
                                 group={ToolOptionGroups.Surfaces}
                             />
                             <ToolRow
                                 label="SubElementManager.UI.ToolOptions.Vegetation"
                                 group={ToolOptionGroups.Vegetation}
+                            />
+                            <ToolRow
+                                label="SubElementManager.UI.ToolOptions.Elements"
+                                group={ToolOptionGroups.Elements}
                             />
                         </div>
                     )}
@@ -91,8 +99,10 @@ const ToolPanel = function ToolPanel() {
 
 enum ToolOptionGroups {
     Decorations,
+    Markings,
     Surfaces,
     Vegetation,
+    Elements,
     FixedRandomSeed,
 }
 
@@ -104,40 +114,64 @@ const AVAILABLE_TOOL_OPTIONS: {
     group: ToolOptionGroups;
 }[] = [
     {
-        flag: ToolOptions.NoFence,
-        localeKey: "SubElementManager.UI.ToolOptions.NoFence",
-        icon: "coui://sem/ToolOptions/NoFence.svg",
+        flag: ToolOptions.NoBoundaryFence,
+        localeKey: "SubElementManager.UI.ToolOptions.NoBoundaryFence",
+        icon: "coui://sem/ToolOptions/NoBoundaryFence.svg",
         group: ToolOptionGroups.Decorations,
     },
     {
-        flag: ToolOptions.NoHedge,
-        localeKey: "SubElementManager.UI.ToolOptions.NoHedge",
-        icon: "coui://sem/ToolOptions/NoHedge.svg",
+        flag: ToolOptions.NoBoundaryHedge,
+        localeKey: "SubElementManager.UI.ToolOptions.NoBoundaryHedge",
+        icon: "coui://sem/ToolOptions/NoBoundaryHedge.svg",
         group: ToolOptionGroups.Decorations,
+    },
+    {
+        flag: ToolOptions.NoMarkingLane,
+        localeKey: "SubElementManager.UI.ToolOptions.NoMarkingLane",
+        icon: "coui://sem/ToolOptions/NoMarkingLane.svg",
+        group: ToolOptionGroups.Markings,
     },
     {
         flag: ToolOptions.NoSurfaceGrass,
         localeKey: "SubElementManager.UI.ToolOptions.NoSurfaceGrass",
-        icon: "coui://sem/ToolOptions/NoGrass.svg",
+        icon: "coui://sem/ToolOptions/NoSurfaceGrass.svg",
         group: ToolOptionGroups.Surfaces,
     },
     {
         flag: ToolOptions.NoSurfacePavement,
         localeKey: "SubElementManager.UI.ToolOptions.NoSurfacePavement",
-        icon: "coui://sem/ToolOptions/NoPavement.svg",
+        icon: "coui://sem/ToolOptions/NoSurfacePavement.svg",
         group: ToolOptionGroups.Surfaces,
+    },
+    {
+        flag: ToolOptions.NoVegetationTree,
+        localeKey: "SubElementManager.UI.ToolOptions.NoVegetationTree",
+        icon: "coui://sem/ToolOptions/NoVegetationTree.svg",
+        group: ToolOptionGroups.Vegetation,
+    },
+    {
+        flag: ToolOptions.NoVegetationShrub,
+        localeKey: "SubElementManager.UI.ToolOptions.NoVegetationShrub",
+        icon: "coui://sem/ToolOptions/NoVegetationShrub.svg",
+        group: ToolOptionGroups.Vegetation,
+    },
+    {
+        flag: ToolOptions.NoElementParking,
+        localeKey: "SubElementManager.UI.ToolOptions.NoElementParking",
+        icon: "coui://sem/ToolOptions/NoElementParking.svg",
+        group: ToolOptionGroups.Elements,
+    },
+    {
+        flag: ToolOptions.NoElementLights,
+        localeKey: "SubElementManager.UI.ToolOptions.NoElementLights",
+        icon: "coui://sem/ToolOptions/NoElementLights.svg",
+        group: ToolOptionGroups.Elements,
     },
     {
         flag: ToolOptions.FixedRandomSeed,
         localeKey: "SubElementManager.UI.ToolOptions.FixedRandomSeed",
         icon: "coui://sem/ToolOptions/FixedRandomSeed.svg",
         group: ToolOptionGroups.FixedRandomSeed,
-    },
-    {
-        flag: ToolOptions.NoVegetation,
-        localeKey: "SubElementManager.UI.ToolOptions.NoVegetation",
-        icon: "coui://sem/ToolOptions/NoVegetation.svg",
-        group: ToolOptionGroups.Vegetation,
     },
 ];
 
@@ -156,7 +190,8 @@ export const ToolRow: React.FC<{ label: string; group: ToolOptionGroups }> = ({
         GAME_BINDINGS.TOOL_OPTIONS.set(value);
     };
 
-    const allSelected = selected === ToolOptions.All;
+    const groupMask = available.reduce((acc, option) => acc | option.flag, 0);
+    const allInGroupSelected = (selected & groupMask) === groupMask;
 
     const hasFlag = (flag: ToolOptions): boolean => (selected & flag) !== 0;
 
@@ -165,7 +200,7 @@ export const ToolRow: React.FC<{ label: string; group: ToolOptionGroups }> = ({
     };
 
     const handleToggleAll = () => {
-        setSelected(allSelected ? ToolOptions.None : ToolOptions.All);
+        setSelected(allInGroupSelected ? (selected & ~groupMask) : (selected | groupMask));
     };
 
     return (
@@ -179,7 +214,7 @@ export const ToolRow: React.FC<{ label: string; group: ToolOptionGroups }> = ({
                         className={c(VT.toolButton.button, styles.iconButton)}
                         src={"coui://sem/ToolOptions/All.svg"}
                         onSelect={handleToggleAll}
-                        selected={allSelected}
+                        selected={allInGroupSelected}
                         multiSelect={true}
                         disabled={false}
                         focusKey={VF.FOCUS_DISABLED}
